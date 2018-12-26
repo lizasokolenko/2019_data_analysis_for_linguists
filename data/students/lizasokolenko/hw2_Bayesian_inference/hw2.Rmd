@@ -1,5 +1,11 @@
 ### 2.1
-
+library(tidyverse)
+f <- read.csv('C:/Users/lizasokolenko/Desktop/hw2_phoible.csv')
+f %>% 
+  mutate(rate = consonants/phonemes) %>% 
+  arrange(desc(rate))-> f
+head(f, n=1) %>% 
+  select(language)
 ### 2.2
 
 
