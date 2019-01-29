@@ -1,5 +1,7 @@
 ### 3.1
-
+library(tidyverse)
+f <- read.csv('C:/Users/lizasokolenko/Desktop/hw2_phoible.csv')
+prod(dnorm(f$consonants, mean = 22, sd = 6))
 ### 3.2
 
 ### 3.3
