@@ -3,7 +3,16 @@ library(tidyverse)
 f <- read.csv('C:/Users/lizasokolenko/Desktop/hw2_phoible.csv')
 prod(dnorm(f$consonants, mean = 22, sd = 6))
 ### 3.2
-
+data <- read.csv('C:/Users/lizasokolenko/Desktop/letter_frequency.csv')
+df <- data_frame(model = c("French", "German", 'Spanish', 'Portuguese', 'Esperanto', 'Italian', 'Turkish', 'Swedish', 'Polish', 'Dutch', 'Danish', 'Icelandic', 'Finnish'),
+                 prior = 1/13,
+                 likelihood = sapply(prior, function(k) data[[k]][13]*data[[k]][15]*data[[k]][19]*data[[k]][20]),
+                 product = prior*likelihood,
+                 posterior = product/sum(product))
+df %>% 
+  arrange(desc(posterior)) %>%
+  head(n = 1) %>% 
+  select(model)
 ### 3.3
 
 
