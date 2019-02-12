@@ -9,11 +9,8 @@ mean_data <- mean(df_brs02$vowel.dur)
 sd_post <- (1/sd_prior+1/sd_data)^-1
 mean_post <- weighted.mean(c(mean_prior, mean_data), c(1/sd_prior, 1/sd_data))
 
-data_frame(x = rep(1:400, 3),
-           density = c(dnorm(unique(x), mean = mean_prior, sd = sd_prior),
-                       dnorm(unique(x), mean = mean_data, sd = sd_data),
-                       dnorm(unique(x), mean = mean_post, sd = sd_post)),
-           dataset = rep(c("prior", "data", "posterior"), each = 400)) 
+data.frame(sd = sd_post, mean = mean_post)
+
 ### 4.2
 cread_int_l_brs02 <- qnorm(.025, mean = mean_post, sd = sd_post)
 cread_int_r_brs02 <- qnorm(.975, mean = mean_post, sd = sd_post)
