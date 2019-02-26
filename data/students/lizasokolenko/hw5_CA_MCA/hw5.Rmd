@@ -1,9 +1,45 @@
 ### 5.1
-
+library(tidyverse)
+install.packages('ca')
+library(ca)
+data <- read.csv('C:/Users/lizasokolenko/Desktop/hw5_chairs.csv')
+data%>% 
+  select(4:19) -> data1
+MCA <- MASS::mca(data1)
+MCA
+d <- cbind(data1, MCA$rs)
+variables <- as_data_frame(MCA$cs)
+variables$var_names <- rownames(MCA$cs)
+data %>% 
+  ggplot(aes(`1`, `2`))+
+  geom_point(aes(color = Category))+
+  stat_ellipse(aes(color = Category))+
+  geom_text(data = variables, aes(`1`, `2`, label = var_names))+
+  theme_bw()+
+  scale_x_continuous(limits = c(-0.015, 0.02))
 ### 5.2
-
+По графику можно понять что Sessel это стул, кровать, а Stuhl это стул для рабочего стола. 
 ### 5.3
+colors_df <- read.csv('https://raw.githubusercontent.com/agricolamz/2019_dat..)
+rownames(colors_df) <- colors_df$colors
+colors_df %>% 
+select(1:4) -> colors_df1
+ca <- ca(colors_df1)
+ca
+summary(ca)
+colors_col <- data.frame(ca$colcoord)
+colors_col$rows <- rownames(ca$colcoord)
 
+colors_row <- data.frame(ca$rowcoord)
+colors_row$rows <- rownames(ca$rowcoord)
+
+colors_col %>% 
+ggplot(aes(Dim1, Dim2, label = rows))+
+geom_text(color = "blue")+
+geom_text(data = colors_row, color = "red")+
+theme_bw()+
+labs(x = "Dim1 (42.1%)",
+y = "Dim2 (32.6%)")
 ### 5.4
 
 ###
